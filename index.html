@@ -1,1 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+    />
+
+    <title>Sharing Service</title>
+    <style>
+      .container {
+        width: 640px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container">
+        <span class="navbar-brand mb-0 h1"
+          ><i class="bi bi-card-checklist"></i> Sharing Service</span
+        >
+      </div>
+    </nav>
+
+    <div class="container">
+      <!--personal information (phone number / email)-->
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="phone number"
+          aria-label="personal info"
+        />
+      </div>
+
+      <!--Category menu-->
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01"
+          >Category</label
+        >
+        <select class="form-select" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="1">delivery food</option>
+          <option value="2">Taxi</option>
+          <option value="3">Others(Parcel, game, Netflix)</option>
+        </select>
+      </div>
+
+      <!--Place menu-->
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01">Place</label>
+        <select class="form-select" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="1">000 dormitory</option>
+          <option value="2">000 lab</option>
+          <option value="3">000 building</option>
+        </select>
+      </div>
+
+      <!--Time menu-->
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01">Time</label>
+        <select class="form-select" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="1">11:00 ~ 12:00</option>
+          <option value="2">12:00 ~ 13:00</option>
+          <option value="3">13:00 ~ 14:00</option>
+        </select>
+      </div>
+
+      <!--register button (blue box)-->
+      <button type="button" id="add" class="btn btn-primary text-nowrap">
+        <i class="bi bi-plus"></i> Register
+      </button>
+    </div>
+
+    <div class="container">
+      <div class="d-flex">
+        <!--Available Participation-->
+        <div class="flex-grow-1 bg-light rounded-2 p-2 me-1 w-50">
+          <h3>Party available</h3>
+          <div id="available-list">
+            <div
+              class="task bg-light p-1 rounded-2 ps-2 d-flex align-items-center"
+            ></div>
+          </div>
+          <!--participate button (green box)-->
+          <button type="button" id="add" class="btn btn-success text-nowrap">
+            <i class="bi bi-plus"></i> participate
+          </button>
+        </div>
+
+        <!--Status of Participation (updated)-->
+        <div class="flex-grow-1 bg-light rounded-2 p-2 w-50">
+          <h3>Participation Status</h3>
+          <div id="status-list"></div>
+          <div class="progress">
+            <!--progress bar of status-->
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 25%"
+              aria-valuenow="25"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              25%
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--communication between participants-->
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Communication"
+          aria-label="Recipient's username"
+          aria-describedby="button-addon2"
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          id="communication-button"
+        >
+          Enter
+        </button>
+      </div>
+      <div class="d-flex">
+        <!--Chatting box-->
+        <div class="flex-grow-1 bg-light rounded-2 p-2 me-1 w-50">
+          <h3>Chatting between participants</h3>
+          <div id="available-list">
+            <div
+              class="task bg-light p-1 rounded-2 ps-2 d-flex align-items-center"
+            ></div>
+          </div>
+        </div>
+    </div>
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- write functions -->
+    <script></script>
+  </body>
+</html>
 
