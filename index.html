@@ -62,12 +62,13 @@
 
     <div class="container">
       <!--personal information (phone number / email)-->
-      <div class="input-group mb-3" id="personal-info">
+      <div class="input-group mb-3">
         <input
           type="text"
           class="form-control"
-          placeholder="phone number"
+          placeholder="phone number (010-xxxx-xxxx)"
           aria-label="personal info"
+          id="personal-info"
         />
       </div>
 
@@ -76,7 +77,7 @@
         <label class="input-group-text" for="inputGroupSelect01"
           >Category</label
         >
-        <select class="form-select" id="inputGroupSelect01">
+        <select class="form-select" id="category">
           <option selected>Choose...</option>
           <option value="1">delivery food</option>
           <option value="2">Taxi</option>
@@ -87,7 +88,7 @@
       <!--Place menu-->
       <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupSelect01">Place</label>
-        <select class="form-select" id="inputGroupSelect01">
+        <select class="form-select" id="place">
           <option selected>Choose...</option>
           <option value="1">000 dormitory</option>
           <option value="2">000 lab</option>
@@ -98,7 +99,7 @@
       <!--Time menu-->
       <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupSelect01">Time</label>
-        <select class="form-select" id="inputGroupSelect01">
+        <select class="form-select" id="time">
           <option selected>Choose...</option>
           <option value="1">11:00 ~ 12:00</option>
           <option value="2">12:00 ~ 13:00</option>
@@ -119,13 +120,9 @@
           <h3>Party available</h3>
           <div id="available-list">
             <div
-              class="task bg-light p-1 rounded-2 ps-2 d-flex align-items-center"
+              class="task bg-light p-1 rounded-2 ps-2 d-flex align-items-center d-flex"
             ></div>
           </div>
-          <!--participate button (green box)-->
-          <button type="button" id="participate" class="btn btn-success text-nowrap">
-            <i class="bi bi-plus"></i> participate
-          </button>
         </div>
 
         <!--Status of Participation (updated)-->
@@ -186,7 +183,50 @@
 
     <!-- write functions -->
     <script>
+    
+      function Registering (){
 
+        // profile information
+      let input = document.getElementById("personal-info").value;
+      let profile =  "userID: " + input + " ==> participation state: ";
+      
+       alert(profile);
+
+        // load selected category, place, time options
+        let categorySelected = document.getElementById("category");
+        categorySelected = categorySelected.options[categorySelected.selectedIndex].text;
+
+        let placeSelected = document.getElementById("place");
+        placeSelected = placeSelected.options[placeSelected.selectedIndex].text;
+
+        let timeSelected = document.getElementById("time");
+        timeSelected = timeSelected.options[timeSelected.selectedIndex].text;
+
+        // add category, place, time information to available list
+       let newInfo = document.createElement("div");
+       newInfo.className ="task bg-light p-1 rounded-2 ps-2  d-flex align-items-center";
+       let span = document.createElement("span");
+       span.className = "me-auto";
+       span.innerHTML = categorySelected + " <br/>pick-up: "+ placeSelected + '<br/>' + " time: " + timeSelected;
+       newInfo.appendChild(span);
+
+       // make participation button
+       let buttonParticipate = document.createElement('button');
+       buttonParticipate.className = "btn btn-sm btn-success text-nowrap me-auto";
+        buttonParticipate.innerHTML = '<i class="bi bi-plus"></i>';
+        buttonParticipate.innerText = "+ participate"
+        newInfo.appendChild(buttonParticipate);
+
+       let availableList = document.querySelector("#available-list");
+       availableList.appendChild(newInfo);
+
+      }
+      
+      // if register button clicked implement Registering function
+      let button = document.querySelector("#register");
+      button.addEventListener("click", () => {
+        Registering();
+      });
 
     </script>
   </body>
