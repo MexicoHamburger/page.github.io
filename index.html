@@ -204,13 +204,14 @@
         };
       };
 
-    }
-
-    let lastParties = localStorage.getItem("parties");
+      let lastParties = localStorage.getItem("parties");
       let init_availableList = document.querySelector("#available-list");
       if (!lastParties) return;
 			last = JSON.parse(lastParties);
       init_availableList.appendChild(last);
+    }
+
+
 
     var i = 1;
       // Chat system. Local storage-saving feature should be added
@@ -283,7 +284,7 @@
       let progbar = document.createElement("progress");
       progbar.value = 100/(num);
       progbar.max = "100";
-      progbar.id = "progbar";
+      progbar.id = "progbar"+i;
       let partspan = document.createElement("span");
       partspan.className = "mb-2";
       partspan.append(progbar);
@@ -308,7 +309,6 @@
         let wantedprogressbar = sibling_party.lastChild.firstChild;
         wantedprogressbar.value += 100/num;
         alert(parent_party.innerHTML.split(">")[1].split("<")[0] + parent_party.innerHTML.split(">")[2].split("<")[0] + parent_party.innerHTML.split(">")[3].split("<")[0] + parent_party.innerHTML.split(">")[4].split("<")[0])
-        console.log(wantedprogressbar);
       });
       newInfo.appendChild(buttonParticipate);
 
