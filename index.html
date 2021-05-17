@@ -54,9 +54,13 @@
           class="form-control"
           placeholder="number of participants"
           aria-label="participants num"
+<<<<<<< HEAD
           id="participants num"
           min="1"
           required
+=======
+          id="participants-num"
+>>>>>>> f2462aff09e8f7a9567c55f4247f0d173b3415c9
         />
       </div>
 
@@ -127,6 +131,7 @@
         </div>
 
         
+<<<<<<< HEAD
           
           <!--Status of Participation (updated)-->
           <!-- Included in Party available
@@ -147,6 +152,21 @@
             </div>
           </div>
         </div>-->
+=======
+          </div>
+          <h3>Participation Status</h3>
+          <!--Participation Status box-->
+      <div class="d-flex">
+
+        <div class="flex-grow-1 bg-light rounded-2 p-2 me-1 w-50">
+          <div id="participate-list">
+            <div
+              class="task bg-light p-1 rounded-2 ps-2 d-flex align-items-center d-flex"
+            ></div>
+          </div>
+        </div>
+      </div>
+>>>>>>> f2462aff09e8f7a9567c55f4247f0d173b3415c9
 
       <!--communication between participants-->
       </div>
@@ -191,6 +211,7 @@
 
     <!-- write functions -->
     <script>
+<<<<<<< HEAD
 
     
     window.onload = function(){
@@ -214,6 +235,9 @@
 
 
     var i = 1;
+=======
+      var i = 1;
+>>>>>>> f2462aff09e8f7a9567c55f4247f0d173b3415c9
       // Chat system. Local storage-saving feature should be added
     function addChat() {
       let chatline = document.querySelector("#communication-input");
@@ -245,6 +269,7 @@
       const keyName = event.key;
       if (keyName === 'Enter') addChat();
     });
+<<<<<<< HEAD
 
 
 
@@ -256,6 +281,13 @@
         // profile information
       let input = document.getElementById("personal-info").value;
       let num = document.getElementById("participants num").value;
+=======
+
+      function Registering (){
+        // profile information
+        let input = document.getElementById("personal-info").value;
+        let num = document.getElementById("participants-num").value;
+>>>>>>> f2462aff09e8f7a9567c55f4247f0d173b3415c9
         
 
         // load selected category, place, time options
@@ -276,6 +308,7 @@
 
 
         // add category, place, time information to available list
+<<<<<<< HEAD
       let newInfo = document.createElement("div");
       newInfo.className ="task bg-light p-1 rounded-2 ps-2  d-flex align-items-center w-100";
       
@@ -321,6 +354,42 @@
       let availableList = document.querySelector("#available-list");
       availableList.appendChild(newInfo);
 
+=======
+       let newInfo = document.createElement("div");
+       newInfo.className ="task bg-light p-1 rounded-2 ps-2  d-flex align-items-center";
+       // added - dynamically allocated ID, upon button pressed.
+       newInfo.id = "PA" + i;
+       let partInfo = newInfo.cloneNode(true);
+       partInfo.id = "PS" + i;
+
+       let span = document.createElement("span");
+       span.className = "me-auto";
+       span.innerHTML = categorySelected + " <br/>pick-up: "+ placeSelected + '<br/>' + " time: " + timeSelected + '<br/>' + "number of participants: " + num + '<br/>';
+       newInfo.appendChild(span);
+
+       let progbar = document.createElement("progress");
+       progbar.value = 100/(num);
+       progbar.max = "100";
+       progbar.id = "progbar"+i;
+
+       let partspan = span.cloneNode(true);
+       partspan.append(progbar);
+       partInfo.appendChild(partspan);
+       // add participation info to participate list
+       let participateList = document.querySelector("#participate-list");
+       participateList.appendChild(partInfo);
+
+       // make participation button. Each button has id "participateButton1, participateButton2 ..."
+       let buttonParticipate = document.createElement('button');
+       buttonParticipate.className = "btn btn-sm btn-success text-nowrap me-auto";
+        buttonParticipate.innerHTML = '<i class="bi bi-plus"></i>';
+        buttonParticipate.innerText = "+ participate"
+        buttonParticipate.id = "participateButton" + i++;
+        newInfo.appendChild(buttonParticipate);
+
+       let availableList = document.querySelector("#available-list");
+       availableList.appendChild(newInfo);
+>>>>>>> f2462aff09e8f7a9567c55f4247f0d173b3415c9
        // pop up page (about registered information)
       let profile =  "userID: " + input + " ==> participation state: (1/" +num+") \n\n*****register info*****\n"+ categorySelected+ " registered \n"+ placeSelected+" ("+timeSelected+")";
       
@@ -328,12 +397,13 @@
 
        // reset all register boxes
       document.querySelector("#personal-info").value = "";
-      document.querySelector("#participants num").value = "";
+      document.querySelector("#participants-num").value = "";
       document.querySelector("#category").value = "Choose...";
       document.querySelector("#place").value = "Choose...";
       document.querySelector("#time").value = "Choose...";
 
 
+<<<<<<< HEAD
       localStorage.setItem("parties", JSON.stringify(availableList));
     }
 
@@ -349,6 +419,8 @@
     });
 
 
+=======
+>>>>>>> f2462aff09e8f7a9567c55f4247f0d173b3415c9
     </script>
   </body>
 </html>
