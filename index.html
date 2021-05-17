@@ -28,7 +28,7 @@
   <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
-      <a class="navbar-brand" href="#">&ensp;&ensp;Group25</a>
+      <a class="navbar-brand" href="#">&ensp;&ensp;Group25 Sharing Service</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -40,7 +40,7 @@
         <input
           type="number"
           class="form-control"
-          placeholder="phone number (010-xxxx-xxxx)"
+          placeholder="phone number (010xxxxxxxx)"
           aria-label="personal info"
           id="personal-info"
           required
@@ -247,10 +247,6 @@
     });
 
 
-
-
-
-
     function Registering (){
       
         // profile information
@@ -273,8 +269,6 @@
         return;
       }
 
-
-
         // add category, place, time information to available list
       let newInfo = document.createElement("div");
       newInfo.className ="task bg-light p-1 rounded-2 ps-2  d-flex align-items-center w-100";
@@ -295,7 +289,7 @@
       partspan.className = "mb-2";
       partspan.append(progbar);
 
-      //putted part status inside the newInfo
+      //put part status inside the newInfo
       let newInfoState = document.createElement("div");
       newInfoState.className="flex-grow-1 bg-light rounded-2 p-2 w-50"
       newInfoState.innerHTML = "<h5>Participation Status</h5>"
@@ -322,13 +316,12 @@
       let profile =  "userID: " + input + " ==> participation state: (1/" +num+") \n\n*****register info*****\n"+ categorySelected+ " registered \n"+ placeSelected+" ("+timeSelected+")";
       alert(profile);
 
-       // reset all register boxes
+      // reset all register boxes
       document.querySelector("#personal-info").value = "";
-      document.querySelector("#participants num").value = "";
+      document.getElementById("participants num").value = "";
       document.querySelector("#category").value = "Choose...";
       document.querySelector("#place").value = "Choose...";
       document.querySelector("#time").value = "Choose...";
-
 
       localStorage.setItem("parties", JSON.stringify(availableList));
     }
@@ -341,6 +334,7 @@
       }
       else { 
         Registering()
+        
       };
     });
 
