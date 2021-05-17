@@ -47,7 +47,7 @@
           class="form-control"
           placeholder="number of participants"
           aria-label="participants num"
-          id="participants num"
+          id="participants-num"
         />
       </div>
 
@@ -120,22 +120,16 @@
 
         
           </div>
-          <!--Status of Participation (updated)-->
-        <div class="flex-grow-1 bg-light rounded-2 p-2 w-50">
           <h3>Participation Status</h3>
-          <div id="status-list"></div>
-          <div class="progress">
-            <!--progress bar of status-->
+          <!--Participation Status box-->
+      <div class="d-flex">
+
+        <div class="flex-grow-1 bg-light rounded-2 p-2 me-1 w-50">
+          <div id="participate-list">
             <div
-              class="progress-bar"
-              role="progressbar"
-              style="width: 25%"
-              aria-valuenow="25"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
-              25%
-            </div>
+              class="task bg-light p-1 rounded-2 ps-2 d-flex align-items-center d-flex"
+            ></div>
+          </div>
         </div>
       </div>
 
@@ -143,6 +137,7 @@
       <div class="input-group mb-3">
         <input
           type="text"
+          id = "communication-input"
           class="form-control"
           placeholder="Communication"
           aria-label="Recipient's username"
@@ -160,7 +155,7 @@
         <!--Chatting box-->
         <div class="flex-grow-1 bg-light rounded-2 p-2 me-1 w-50">
           <h3>Chatting between participants</h3>
-          <div id="available-list">
+          <div id="chatbox">
             <div
               class="task bg-light p-1 rounded-2 ps-2 d-flex align-items-center"
             ></div>
@@ -177,13 +172,43 @@
 
     <!-- write functions -->
     <script>
-    
+      var i = 1;
+      // Chat system. Local storage-saving feature should be added
+    function addChat() {
+      let chatline = document.querySelector("#communication-input");
+      let IDline = document.querySelector("#personal-info");
+      let text = chatline.value;
+      let ID = IDline.value;
+
+      if ((!ID) || (!text)) return;
+      let chatdiv = document.createElement("div");
+      chatdiv.className = "task bg-light p-1 rounded-2 ps-2 d-flex align-items-center"
+      let span = document.createElement("span");
+      span.className = "me-auto";
+      span.innerHTML = "ID " + ID + ": " + text;
+      chatdiv.appendChild(span);
+
+      let chatbox = document.querySelector("#chatbox");
+      chatbox.appendChild(chatdiv);
+
+      chatline.value = "";
+    }
+
+    // Chat system works when button Clicked or pressed Enter
+    let chatbutton = document.querySelector("#communication-button");
+      chatbutton.addEventListener("click", () => {
+        addChat();
+      });
+    let chatinputbox = document.querySelector("#communication-input");
+    chatinputbox.addEventListener("keyup", (event) => {
+      const keyName = event.key;
+      if (keyName === 'Enter') addChat();
+    });
 
       function Registering (){
-
         // profile information
         let input = document.getElementById("personal-info").value;
-        let num = document.getElementById("participants num").value;
+        let num = document.getElementById("participants-num").value;
         
 
         // load selected category, place, time options
@@ -199,22 +224,38 @@
         // add category, place, time information to available list
        let newInfo = document.createElement("div");
        newInfo.className ="task bg-light p-1 rounded-2 ps-2  d-flex align-items-center";
+       // added - dynamically allocated ID, upon button pressed.
+       newInfo.id = "PA" + i;
+       let partInfo = newInfo.cloneNode(true);
+       partInfo.id = "PS" + i;
+
        let span = document.createElement("span");
        span.className = "me-auto";
-       span.innerHTML = categorySelected + " <br/>pick-up: "+ placeSelected + '<br/>' + " time: " + timeSelected + '<br/>' + "number of participants: " + num;
+       span.innerHTML = categorySelected + " <br/>pick-up: "+ placeSelected + '<br/>' + " time: " + timeSelected + '<br/>' + "number of participants: " + num + '<br/>';
        newInfo.appendChild(span);
 
-       // make participation button
+       let progbar = document.createElement("progress");
+       progbar.value = 100/(num);
+       progbar.max = "100";
+       progbar.id = "progbar"+i;
+
+       let partspan = span.cloneNode(true);
+       partspan.append(progbar);
+       partInfo.appendChild(partspan);
+       // add participation info to participate list
+       let participateList = document.querySelector("#participate-list");
+       participateList.appendChild(partInfo);
+
+       // make participation button. Each button has id "participateButton1, participateButton2 ..."
        let buttonParticipate = document.createElement('button');
        buttonParticipate.className = "btn btn-sm btn-success text-nowrap me-auto";
         buttonParticipate.innerHTML = '<i class="bi bi-plus"></i>';
         buttonParticipate.innerText = "+ participate"
-        buttonParticipate.id = "only-participating";
+        buttonParticipate.id = "participateButton" + i++;
         newInfo.appendChild(buttonParticipate);
 
        let availableList = document.querySelector("#available-list");
        availableList.appendChild(newInfo);
-
        // pop up page (about registered information)
        let profile =  "userID: " + input + " ==> participation state: (1/" +num+") \n\n*****register info*****\n"+ categorySelected+ " registered \n"+ placeSelected+" ("+timeSelected+")";
       
@@ -222,7 +263,7 @@
 
        // reset all register boxes
       document.querySelector("#personal-info").value = "";
-      document.querySelector("#participants num").value = "";
+      document.querySelector("#participants-num").value = "";
       document.querySelector("#category").value = "Choose...";
       document.querySelector("#place").value = "Choose...";
       document.querySelector("#time").value = "Choose...";
@@ -234,10 +275,6 @@
       button.addEventListener("click", () => {
         Registering();
       });
-
-
-      
-
 
     </script>
   </body>
