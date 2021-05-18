@@ -209,7 +209,28 @@
     <!-- write functions -->
     <script>
 
-    
+    let prevList = {};
+
+    function loadParty() {
+			let lastInfo = localStorage.getItem("party");
+			if (!lastInfo) return;
+			prevList = JSON.parse(lastInfo);
+      [].forEach.call(prevList, addToAvail);
+			//prevList.forEach(addToAvail);
+		}
+
+    function saveParty() {
+			localStorage.setItem("party", JSON.stringify(prevList));
+		}
+
+    function addToAvail(AvailInfo) {
+			let div = document.querySelector("#available-list");
+      let divInfo = document.createElement("div");
+      divInfo.innerHTML = AvailInfo
+      div.appendChild(divInfo);
+		}
+
+
     window.onload = function(){
       var a = document.getElementsByTagName('input');
       for(var i=0; i<a.length; i++){
@@ -221,11 +242,8 @@
         };
       };
 
-      let lastParties = localStorage.getItem("parties");
-      let init_availableList = document.querySelector("#available-list");
-      if (!lastParties) return;
-			last = JSON.parse(lastParties);
-      init_availableList.appendChild(last);
+      loadParty();
+
     }
 
 
@@ -332,6 +350,10 @@
       let availableList = document.querySelector("#available-list");
       availableList.appendChild(newInfo);
 
+      [].push.call(prevList, newInfo.outerHTML);
+      console.log(JSON.stringify(prevList));
+      saveParty();
+
        // pop up page (about registered information)
       let profile =  "userID: " + input + " ==> participation state: (1/" +num+") \n\n*****register info*****\n"+ categorySelected+ " registered \n"+ placeSelected+" ("+timeSelected+")";
       alert(profile);
@@ -343,7 +365,7 @@
       document.querySelector("#place").value = "Choose...";
       document.querySelector("#time").value = "Choose...";
 
-      localStorage.setItem("parties", JSON.stringify(availableList));
+      
     }
 
       // if register button clicked implement Registering function
@@ -357,7 +379,6 @@
         
       };
     });
-
 
     </script>
   </body>
