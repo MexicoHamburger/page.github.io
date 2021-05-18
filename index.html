@@ -216,7 +216,6 @@
 			if (!lastInfo) return;
 			prevList = JSON.parse(lastInfo);
       [].forEach.call(prevList, addToAvail);
-			//prevList.forEach(addToAvail);
 		}
 
     function saveParty() {
@@ -228,6 +227,15 @@
       let divInfo = document.createElement("div");
       divInfo.innerHTML = AvailInfo
       div.appendChild(divInfo);
+      let num = Number(divInfo.querySelector("#info-span").innerHTML.split(":")[5]);
+      let buttonParticipate = divInfo.querySelector("#only-participating")
+      buttonParticipate.addEventListener("click", () => {
+        let parent_party = buttonParticipate.parentElement
+        let sibling_party = buttonParticipate.previousSibling;
+        let wantedprogressbar = sibling_party.lastChild.firstChild;
+        wantedprogressbar.value += 100/num;
+        alert(parent_party.innerHTML.split(">")[1].split("<")[0] + parent_party.innerHTML.split(">")[2].split("<")[0] + parent_party.innerHTML.split(">")[3].split("<")[0] + parent_party.innerHTML.split(">")[4].split("<")[0])
+      });
 		}
 
 
@@ -313,6 +321,7 @@
       
       let span = document.createElement("span");
       span.className = "me-auto";
+      span.id="info-span"
       span.innerHTML = categorySelected + " <br/>pick-up: "+ placeSelected + '<br/>' + " time: " + timeSelected + '<br/>' + "number of participants: " + num;
       newInfo.appendChild(span);
       
