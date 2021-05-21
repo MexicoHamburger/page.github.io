@@ -170,7 +170,9 @@
           <div id="chatbox">
             <div
               class="task bg-light p-1 rounded-2 ps-2 d-flex align-items-center"
-            ></div>
+            >
+            <span class = "me-auto", id = "chatcontent"></span>
+          </div>
           </div>
         </div>
       </div>
@@ -187,6 +189,7 @@
     <script>
 
     let prevList = {};
+    let chatArray = [];
 
     function loadParty() {
 			let lastInfo = localStorage.getItem("party");
@@ -194,6 +197,20 @@
 			prevList = JSON.parse(lastInfo);
       [].forEach.call(prevList, addToAvail);
 		}
+
+    function loadChat() {
+      let chat = localStorage.getItem('chat');
+      let chat_contents = chat.split(",");
+      let output = "";
+
+      for (let i = 0 ; i < chat_contents.length ; i++) {
+        output = output.concat(chat_contents[i]);
+        output = output.concat("\n");
+      }
+      //console.log(chat);
+      let chatbox = document.querySelector("#chatcontent");
+      chatbox.innerText = output;
+    }
 
     function saveParty() {
 			localStorage.setItem("party", JSON.stringify(prevList));
@@ -228,7 +245,7 @@
       };
 
       loadParty();
-
+      loadChat();
     }
 
 
@@ -237,21 +254,20 @@
       // Chat system. Local storage-saving feature should be added
     function addChat() {
       let chatline = document.querySelector("#communication-input");
-      let IDline = document.querySelector("#personal-info");
+      let IDline = document.querySelector("#only-participate");
       let text = chatline.value;
       let ID = IDline.value;
 
       if ((!ID) || (!text)) return;
-      let chatdiv = document.createElement("div");
-      chatdiv.className = "task bg-light p-1 rounded-2 ps-2 d-flex align-items-center"
-      let span = document.createElement("span");
-      span.className = "me-auto";
-      span.innerHTML = "ID " + ID + ": " + text;
-      chatdiv.appendChild(span);
-
-      let chatbox = document.querySelector("#chatbox");
-      chatbox.appendChild(chatdiv);
-
+      let tmpstring = "";
+      tmpstring = localStorage.getItem('chat');
+      if (tmpstring === null) {tmpstring = "ID " + ID + ": " + text + "\n\n"}
+      else {
+      tmpstring = tmpstring.concat("ID " + ID + ": " + text + "\n\n");
+      }
+      localStorage.setItem('chat', tmpstring);
+      //console.log(localStorage.getItem('chat'));
+      loadChat();
       chatline.value = "";
     }
 
@@ -335,6 +351,7 @@
       // if the party group is full remove the participate button
       if (wantedprogressbar.value >= 100){
         buttonParticipate.remove();
+        console.log("Removed");
       }
       
        
