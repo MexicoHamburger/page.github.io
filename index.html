@@ -243,7 +243,6 @@
             });
         };
       };
-
       loadParty();
       loadChat();
     }
@@ -253,6 +252,7 @@
     var i = 1;
       // Chat system. Local storage-saving feature should be added
     function addChat() {
+      var date = new Date();
       let chatline = document.querySelector("#communication-input");
       let IDline = document.querySelector("#only-participate");
       let text = chatline.value;
@@ -261,9 +261,9 @@
       if ((!ID) || (!text)) return;
       let tmpstring = "";
       tmpstring = localStorage.getItem('chat');
-      if (tmpstring === null) {tmpstring = "ID " + ID + ": " + text + "\n\n"}
+      if (tmpstring === null) {tmpstring = date.getMonth()+1 + "월 " + date.getDate() + "일 " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "   ID " + ID + ": " + text + "\n\n"}
       else {
-      tmpstring = tmpstring.concat("ID " + ID + ": " + text + "\n\n");
+      tmpstring = tmpstring.concat(date.getMonth()+1 + "월 " + date.getDate() + "일 " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "   ID " + ID + ": " + text + "\n\n");
       }
       localStorage.setItem('chat', tmpstring);
       //console.log(localStorage.getItem('chat'));
