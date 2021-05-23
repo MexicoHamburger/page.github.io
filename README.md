@@ -1,5 +1,3 @@
-# page.github.io
-
 <h2>Name of the page : Sharing service</h2>
 
 
