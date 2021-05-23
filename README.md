@@ -1,6 +1,6 @@
 # page.github.io
 
-Name of the page : Sharing service
+<h1>Name of the page : Sharing service</h1>
 
 
 Screen shot of the page
