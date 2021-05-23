@@ -143,29 +143,6 @@
           ></div>
         </div>
 
-        
-          
-          <!--Status of Participation (updated)-->
-          <!-- Included in Party available
-        <div class="flex-grow-1 bg-light rounded-2 p-2 w-50">
-          <h3>Participation Status</h3>
-          <div id="status-list"></div>
-          <div class="progress">
-            <!-progress bar of status->
-            <div
-              class="progress-bar"
-              role="progressbar"
-              style="width: 25%"
-              aria-valuenow="25"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
-              25%
-            </div>
-          </div>
-        </div>-->
-
-      <!--communication between participants-->
       </div>
 
       
@@ -193,7 +170,9 @@
           <div id="chatbox">
             <div
               class="task bg-light p-1 rounded-2 ps-2 d-flex align-items-center"
-            ></div>
+            >
+            <span class = "me-auto", id = "chatcontent"></span>
+          </div>
           </div>
         </div>
       </div>
@@ -210,6 +189,7 @@
     <script>
 
     let prevList = {};
+    let chatArray = [];
 
     function loadParty() {
 			let lastInfo = localStorage.getItem("party");
@@ -217,6 +197,20 @@
 			prevList = JSON.parse(lastInfo);
       [].forEach.call(prevList, addToAvail);
 		}
+
+    function loadChat() {
+      let chat = localStorage.getItem('chat');
+      let chat_contents = chat.split(",");
+      let output = "";
+
+      for (let i = 0 ; i < chat_contents.length ; i++) {
+        output = output.concat(chat_contents[i]);
+        output = output.concat("\n");
+      }
+      //console.log(chat);
+      let chatbox = document.querySelector("#chatcontent");
+      chatbox.innerText = output;
+    }
 
     function saveParty() {
 			localStorage.setItem("party", JSON.stringify(prevList));
@@ -235,8 +229,12 @@
         let wantedprogressbar = sibling_party.lastChild.firstChild;
         wantedprogressbar.value += 100/num;
         alert(parent_party.innerHTML.split(">")[1].split("<")[0] + parent_party.innerHTML.split(">")[2].split("<")[0] + parent_party.innerHTML.split(">")[3].split("<")[0] + parent_party.innerHTML.split(">")[4].split("<")[0])
+        // if the party group is full remove the participate button
+        if (wantedprogressbar.value >= 100){
+          buttonParticipate.className = "btn btn-sm btn-success text-nowrap me-auto disabled";
+        };
       });
-		}
+    }
 
 
     window.onload = function(){
@@ -249,9 +247,8 @@
             });
         };
       };
-
       loadParty();
-
+      loadChat();
     }
 
 
@@ -259,22 +256,22 @@
     var i = 1;
       // Chat system. Local storage-saving feature should be added
     function addChat() {
+      var date = new Date();
       let chatline = document.querySelector("#communication-input");
-      let IDline = document.querySelector("#personal-info");
+      let IDline = document.querySelector("#only-participate");
       let text = chatline.value;
       let ID = IDline.value;
 
       if ((!ID) || (!text)) return;
-      let chatdiv = document.createElement("div");
-      chatdiv.className = "task bg-light p-1 rounded-2 ps-2 d-flex align-items-center"
-      let span = document.createElement("span");
-      span.className = "me-auto";
-      span.innerHTML = "ID " + ID + ": " + text;
-      chatdiv.appendChild(span);
-
-      let chatbox = document.querySelector("#chatbox");
-      chatbox.appendChild(chatdiv);
-
+      let tmpstring = "";
+      tmpstring = localStorage.getItem('chat');
+      if (tmpstring === null) {tmpstring = date.getMonth()+1 + "월 " + date.getDate() + "일 " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "   ID " + ID + ": " + text + "\n\n"}
+      else {
+      tmpstring = tmpstring.concat(date.getMonth()+1 + "월 " + date.getDate() + "일 " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "   ID " + ID + ": " + text + "\n\n");
+      }
+      localStorage.setItem('chat', tmpstring);
+      //console.log(localStorage.getItem('chat'));
+      loadChat();
       chatline.value = "";
     }
 
@@ -329,6 +326,7 @@
       progbar.value = 100/(num);
       progbar.max = "100";
       progbar.id = "progbar"+i;
+      progbar.name = "progbarname";
       let partspan = document.createElement("span");
       partspan.className = "mb-2";
       partspan.append(progbar);
@@ -352,7 +350,13 @@
         let sibling_party = buttonParticipate.previousSibling;
         let wantedprogressbar = sibling_party.lastChild.firstChild;
         wantedprogressbar.value += 100/num;
+
         alert(parent_party.innerHTML.split(">")[1].split("<")[0] + parent_party.innerHTML.split(">")[2].split("<")[0] + parent_party.innerHTML.split(">")[3].split("<")[0] + parent_party.innerHTML.split(">")[4].split("<")[0])
+
+        // if the party group is full remove the participate button
+        if (wantedprogressbar.value >= 100){
+          buttonParticipate.className = "btn btn-sm btn-success text-nowrap me-auto disabled";
+        }
       });
       newInfo.appendChild(buttonParticipate);
 
@@ -360,7 +364,6 @@
       availableList.appendChild(newInfo);
 
       [].push.call(prevList, newInfo.outerHTML);
-      console.log(JSON.stringify(prevList));
       saveParty();
 
        // pop up page (about registered information)
@@ -373,8 +376,7 @@
       document.querySelector("#category").value = "Choose...";
       document.querySelector("#place").value = "Choose...";
       document.querySelector("#time").value = "Choose...";
-
-      
+    
     }
 
       // if register button clicked implement Registering function
@@ -385,7 +387,6 @@
       }
       else { 
         Registering()
-        
       };
     });
 
